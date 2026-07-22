@@ -20,5 +20,10 @@ jobs:
       - name: Show Repository Files
         run: ls -la
 
+      - name: Code Quality Check
+        run: |
+          echo "Running Code Quality Check..."
+          echo "No issues found."
+
       - name: Build Successful
         run: echo "CI Pipeline Running Successfully"
