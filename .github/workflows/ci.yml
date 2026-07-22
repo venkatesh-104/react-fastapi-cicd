@@ -29,6 +29,10 @@ jobs:
         run: |
           echo "Running Automated Tests..."
           echo "All Tests Passed"
+          
+      - name: Build Docker Image
+        run: |
+          docker build -t react-fastapi-app .
 
       - name: Build Successful
         run: echo "CI Pipeline Running Successfully"
