@@ -78,3 +78,14 @@ jobs:
           context: ./backend
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/react-fastapi-backend:latest
+
+        production-deploy:
+        needs: docker-build-push
+        runs-on: ubuntu-latest
+
+        environment:
+        name: production
+
+        steps:
+      - name: Production Deployment Approved
+        run: echo "Production deployment approved"
