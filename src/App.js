@@ -4,7 +4,7 @@ function App() {
   const [employees, setEmployees] = useState([]);
 
   useEffect(() => {
-    fetch("http://54.66.29.95:8000")
+    fetch("http://52.64.17.46:8000/employees")
       .then((res) => res.json())
       .then((data) => setEmployees(data))
       .catch((err) => console.log(err));
@@ -37,4 +37,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
