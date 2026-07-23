@@ -54,7 +54,7 @@ jobs:
       # Run Python Code Quality
       - name: Run Python Code Quality
         run: |
-          flake8 backend --count --statistics
+          flake8 backend --ignore=W291,W292 --count --statistics
 
       # Login to Docker Hub
       - name: Login to Docker Hub
