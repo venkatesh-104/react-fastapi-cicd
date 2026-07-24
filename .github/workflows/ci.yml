@@ -89,6 +89,31 @@ jobs:
     steps:
       - name: Production Approval
         run: echo "Production deployment approved"
+   notify:  
+       needs: production-deploy
+       if: failure() 
+      runs-on: ubuntu-latest
+
+    steps:
+      - name: Send Email Notification
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "GitHub Actions Deployment Failed"
+          to: venkatesh.official.2002@gmail.com
+          from: GitHub Actions
+          body: |
+            Deployment Failed
+
+            Repository: ${{ github.repository }}
+            Branch: ${{ github.ref_name }}
+            Commit: ${{ github.sha }}
+
+            Check GitHub Actions logs.
 
       - name: Health Check
         run: |
