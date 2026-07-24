@@ -89,7 +89,7 @@ jobs:
 
       - name: Health Check
         run: |
-          curl --fail http://54.252.149.218:8000/employees
+          curl --fail http://3.106.116.180:8000/employees
 
   notify:
     needs: production-deploy
