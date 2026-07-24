@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # Checkout
+      # Checkout Repository
       - name: Checkout Source
         uses: actions/checkout@v4
 
@@ -37,8 +37,7 @@ jobs:
 
       # Install Backend Dependencies
       - name: Install Backend Dependencies
-        run: |
-          pip install -r backend/requirements.txt
+        run: pip install -r backend/requirements.txt
 
       # Run Backend Tests
       - name: Run Backend Tests
@@ -48,13 +47,11 @@ jobs:
 
       # Install Flake8
       - name: Install Flake8
-        run: |
-          pip install flake8
+        run: pip install flake8
 
-      # Python Code Quality
+      # Run Python Code Quality
       - name: Run Python Code Quality
-        run: |
-          flake8 backend --ignore=W291,W292 --count --statistics
+        run: flake8 backend --ignore=W291,W292 --count --statistics
 
       # Login to Docker Hub
       - name: Login to Docker Hub
@@ -89,10 +86,15 @@ jobs:
     steps:
       - name: Production Approval
         run: echo "Production deployment approved"
-   notify:  
-       needs: production-deploy
-       if: failure() 
-      runs-on: ubuntu-latest
+
+      - name: Health Check
+        run: |
+          curl --fail http://54.252.149.218:8000/employees
+
+  notify:
+    needs: production-deploy
+    if: failure()
+    runs-on: ubuntu-latest
 
     steps:
       - name: Send Email Notification
@@ -114,7 +116,3 @@ jobs:
             Commit: ${{ github.sha }}
 
             Check GitHub Actions logs.
-
-      - name: Health Check
-        run: |
-          curl --fail http://54.66.29.22:8000/employees
